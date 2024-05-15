@@ -23,6 +23,7 @@ class AppScreens {
     GetPage(
         name: AppRoutes.pokemonSearch,
         page: () {
+          Get.put(PokedexController());
           return const PokemonSearchScreen();
         }),
     GetPage(
