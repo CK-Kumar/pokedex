@@ -22,4 +22,14 @@ class Api extends GetxService {
       return '{"error": "$e"}';
     }
   }
+
+  Future<String> getPokemonDetails(String url) async {
+    try {
+      var response = await _getApi(url);
+      return response;
+    } catch (e) {
+      log('Error fetching pokemon details: $e');
+      return '{"error": "$e"}';
+    }
+  }
 }

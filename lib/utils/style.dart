@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pokedex/utils/constants.dart';
 
 class Style {
   static const Color lightBlue = Color(0xFF81D4FA);
@@ -24,6 +25,91 @@ class Style {
   static const Color rock = Color(0xFFB2A061);
   static const Color steel = Color(0xFF89A1B0);
   static const Color water = Color(0xFF539AE2);
+  static Color getTypeColor(String type) {
+    switch (type.toLowerCase()) {
+      case Types.bug:
+        return bug;
+      case Types.dark:
+        return dark;
+      case Types.dragon:
+        return dragon;
+      case Types.electric:
+        return electric;
+      case Types.fairy:
+        return fairy;
+      case Types.fighting:
+        return fighting;
+      case Types.fire:
+        return fire;
+      case Types.flying:
+        return flying;
+      case Types.ghost:
+        return ghost;
+      case Types.grass:
+        return grass;
+      case Types.ground:
+        return ground;
+      case Types.ice:
+        return ice;
+      case Types.normal:
+        return normal;
+      case Types.poison:
+        return poison;
+      case Types.psychic:
+        return psychic;
+      case Types.rock:
+        return rock;
+      case Types.steel:
+        return steel;
+      case Types.water:
+        return water;
+      default:
+        return Colors.redAccent;
+    }
+  }
+
+  static IconData getTypeIcon(String type) {
+    switch (type.toLowerCase()) {
+      case Types.bug:
+        return Icons.bug_report;
+      case Types.dark:
+        return Icons.nightlight_round;
+      case Types.dragon:
+        return Icons.pets;
+      case Types.electric:
+        return Icons.flash_on;
+      case Types.fairy:
+        return Icons.filter_vintage;
+      case Types.fighting:
+        return Icons.sports_mma;
+      case Types.fire:
+        return Icons.local_fire_department;
+      case Types.flying:
+        return Icons.flight;
+      case Types.ghost:
+        return Icons.emoji_emotions;
+      case Types.grass:
+        return Icons.grass;
+      case Types.ground:
+        return Icons.landscape;
+      case Types.ice:
+        return Icons.ac_unit;
+      case Types.normal:
+        return Icons.accessibility;
+      case Types.poison:
+        return Icons.science;
+      case Types.psychic:
+        return Icons.psychology;
+      case Types.rock:
+        return Icons.terrain;
+      case Types.steel:
+        return Icons.build;
+      case Types.water:
+        return Icons.water;
+      default:
+        return Icons.help_outline;
+    }
+  }
 }
 
 TextStyle pokedexTextStyle = TextStyle(

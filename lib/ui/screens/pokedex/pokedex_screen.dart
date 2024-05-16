@@ -57,13 +57,13 @@ class PokedexScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.all(5.0.h),
                           child: PokedexButton(
-                              text: 'Explore Pokemon',
+                              text: 'Explore Pokémon!',
                               onPressed: controller.goToExploreScreen),
                         ),
                         Padding(
                           padding: EdgeInsets.all(5.0.h),
                           child: PokedexButton(
-                              text: 'Your Pokemon',
+                              text: 'Captured Pokémon',
                               onPressed: controller.goToCapturedPokemonScreen),
                         ),
                       ],

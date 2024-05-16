@@ -54,11 +54,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future _loadData() async {
     log('starting services ...');
-    await Future.delayed(const Duration(seconds: 3));
+
     Get.put(Api(), permanent: true);
     Get.put(PokedexService(), permanent: true);
     PokedexService pokedexService = Get.find();
     pokedexService.init();
+    await Future.delayed(const Duration(seconds: 3));
     Get.offAllNamed(AppRoutes.pokedex);
   }
 }
