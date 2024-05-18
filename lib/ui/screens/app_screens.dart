@@ -28,6 +28,7 @@ class AppScreens {
     GetPage(
         name: AppRoutes.capturedPokemon,
         page: () {
+          Get.put(PokedexController());
           return const CapturedPokemonScreen();
         }),
   ];

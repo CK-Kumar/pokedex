@@ -9,8 +9,7 @@ class PokemonSearchTile extends StatelessWidget {
   final void Function()? onTap;
   const PokemonSearchTile(
       {super.key, required this.pokemon, required this.onTap});
-  String capitalize(String s) =>
-      s.isNotEmpty ? '${s[0].toUpperCase()}${s.substring(1)}' : s;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -53,7 +52,7 @@ class PokemonSearchTile extends StatelessWidget {
         }),
         title: Center(
           child: Text(
-            capitalize(pokemon.name),
+            pokemon.name.capitalizeFirst.toString(),
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19.sp),
           ),
         ),

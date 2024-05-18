@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:pokedex/utils/constants.dart';
 
 class Api extends GetxService {
+  //General GET method
   Future<String> _getApi(String url) async {
     Uri uri = Uri.parse(url);
     final http.Response response = await http.get(uri);

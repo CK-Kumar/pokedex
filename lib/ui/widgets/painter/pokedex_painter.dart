@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pokedex/utils/style.dart';
 
 class PokedexPainter extends CustomPainter {
+  final Color color;
+
+  PokedexPainter(this.color);
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Style.bostonRed
+      ..color = color
       ..style = PaintingStyle.fill;
 
     final bodyPath = Path()
@@ -68,12 +70,12 @@ class PokedexPainter extends CustomPainter {
     final plusThickness = 40.w;
 
     canvas.drawRect(
-      Rect.fromLTWH(size.width * 0.7 - plusSize / 2, size.height * 0.65,
+      Rect.fromLTWH(size.width * 0.5 - plusSize / 2, size.height * 0.65,
           plusSize, plusThickness),
       plusPaint,
     );
     canvas.drawRect(
-      Rect.fromLTWH(size.width * 0.7 - plusThickness / 2,
+      Rect.fromLTWH(size.width * 0.5 - plusThickness / 2,
           size.height * 0.67 - plusSize / 2, plusThickness, plusSize),
       plusPaint,
     );

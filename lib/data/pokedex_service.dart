@@ -43,6 +43,7 @@ class PokedexService extends GetxService {
 
   final String caughtPokemonsKey = 'caughtPokemons';
 
+//To save the captured pokemon in local
   Future<void> savePokemon(Pokemon pokemon) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> caughtPokemons = prefs.getStringList(caughtPokemonsKey) ?? [];
@@ -52,6 +53,7 @@ class PokedexService extends GetxService {
     }
   }
 
+//To remove the captured pokemon from the local
   Future<void> removePokemon(int id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> caughtPokemons = prefs.getStringList(caughtPokemonsKey) ?? [];
@@ -62,6 +64,7 @@ class PokedexService extends GetxService {
     await prefs.setStringList(caughtPokemonsKey, caughtPokemons);
   }
 
+//To check if the pokemon is already caught
   Future<bool> isPokemonCaught(int id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> caughtPokemons = prefs.getStringList(caughtPokemonsKey) ?? [];
@@ -71,6 +74,7 @@ class PokedexService extends GetxService {
     });
   }
 
+//To get all the captured pokemon from the local
   Future<List<Pokemon>> getCaughtPokemons() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> caughtPokemons = prefs.getStringList(caughtPokemonsKey) ?? [];

@@ -17,7 +17,7 @@ class Pokemon {
 
   List<String> types;
 
-  // Observables for runtime use
+  // Observables for runtime use (These are used for lazy loading in search screen)
   late RxString imageUrlRx;
   late RxString highResolutionUrlRx;
   late RxInt idRx;
@@ -84,7 +84,7 @@ class Pokemon {
     types = (json['types'] as List)
         .map((type) => type['type']['name'].toString())
         .toList();
-    // Update observables
+    // Update observables (For lazy loading)
     imageUrlRx.value = imageUrl;
     highResolutionUrlRx.value = highResolutionUrl;
     idRx.value = id;
