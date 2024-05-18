@@ -76,7 +76,7 @@ class CapturedPokemonScreen extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: controller.selectedType.value == type
-                              ? Style.bostonRed
+                              ? controller.pokedexColor.value
                               : Colors.black,
                         ),
                       ),
