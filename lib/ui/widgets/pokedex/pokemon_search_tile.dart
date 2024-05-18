@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pokedex/controllers/pokedex_controller.dart';
 import 'package:pokedex/models/pokemon_model.dart';
-import 'package:pokedex/utils/style.dart';
 
 class PokemonSearchTile extends StatelessWidget {
   final Pokemon pokemon;
@@ -12,6 +12,7 @@ class PokemonSearchTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PokedexController controller = Get.find();
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -33,9 +34,9 @@ class PokemonSearchTile extends StatelessWidget {
                       return SizedBox(
                         width: 30.w,
                         height: 30.h,
-                        child: const CircularProgressIndicator(
+                        child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          color: Style.bostonRed,
+                          color: controller.pokedexColor.value,
                         ),
                       );
                     }
@@ -44,9 +45,9 @@ class PokemonSearchTile extends StatelessWidget {
               : SizedBox(
                   width: 30.w,
                   height: 30.h,
-                  child: const CircularProgressIndicator(
+                  child: CircularProgressIndicator(
                     strokeWidth: 2,
-                    color: Style.bostonRed,
+                    color: controller.pokedexColor.value,
                   ),
                 );
         }),
@@ -56,9 +57,9 @@ class PokemonSearchTile extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19.sp),
           ),
         ),
-        trailing: const Icon(
+        trailing: Icon(
           Icons.catching_pokemon,
-          color: Style.bostonRed,
+          color: controller.pokedexColor.value,
         ),
         onTap: onTap,
       ),

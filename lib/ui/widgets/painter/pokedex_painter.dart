@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PokedexPainter extends CustomPainter {
-  final Color color;
-
-  PokedexPainter(this.color);
+  PokedexPainter();
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color
+      ..color = Colors.transparent
       ..style = PaintingStyle.fill;
 
     final bodyPath = Path()

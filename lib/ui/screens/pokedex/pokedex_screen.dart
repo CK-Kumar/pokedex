@@ -28,69 +28,73 @@ class _PokedexScreenState extends State<PokedexScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        bottom: true,
-        top: true,
-        child: Center(
-          child: Stack(
-            children: [
-              Obx(() => CustomPaint(
-                    size: Size(411.w, 844.h),
-                    painter: PokedexPainter(controller.pokedexColor.value),
-                  )),
-              Padding(
-                padding: EdgeInsets.only(top: 200.h, left: 15.w, right: 15.w),
-                child: Container(
-                  height: 230.h,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 3.w),
-                    gradient: const LinearGradient(
-                      colors: [
-                        Colors.white,
-                        Style.lightBlue,
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(20.w),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        offset: const Offset(0, 4),
-                        blurRadius: 4.w,
+    return Obx(() {
+      return SafeArea(
+        child: Scaffold(
+          backgroundColor: controller.pokedexColor.value,
+          body: Center(
+            child: Stack(
+              children: [
+                CustomPaint(
+                  size: Size(411.w, 844.h),
+                  painter: PokedexPainter(),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 200.h, left: 15.w, right: 15.w),
+                  child: Container(
+                    height: 260.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 3.w),
+                      gradient: const LinearGradient(
+                        colors: [
+                          Colors.white,
+                          Style.lightBlue,
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(20.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Welcome Ash!', style: pokedexTextStyle),
-                        Padding(
-                          padding: EdgeInsets.all(5.0.h),
-                          child: PokedexButton(
-                              text: 'Explore Pokémon!',
-                              onPressed: controller.goToExploreScreen),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(5.0.h),
-                          child: PokedexButton(
-                              text: 'Captured Pokémon',
-                              onPressed: controller.goToCapturedPokemonScreen),
+                      borderRadius: BorderRadius.circular(20.w),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          offset: const Offset(0, 4),
+                          blurRadius: 4.w,
                         ),
                       ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(20.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Welcome Ash!', style: pokedexTextStyle),
+                          Padding(
+                            padding: EdgeInsets.all(5.0.h),
+                            child: PokedexButton(
+                              text: 'Explore Kanto!',
+                              onPressed: controller.goToExploreScreen,
+                              icon: Icons.search,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(5.0.h),
+                            child: PokedexButton(
+                              text: 'Captured Pokémon',
+                              onPressed: controller.goToCapturedPokemonScreen,
+                              icon: Icons.catching_pokemon,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

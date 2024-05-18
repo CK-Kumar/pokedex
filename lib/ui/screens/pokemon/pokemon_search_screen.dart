@@ -34,52 +34,58 @@ class _PokemonSearchScreenState extends State<PokemonSearchScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Explore Pokémon',
-                style: pokedexTextStyle,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-          backgroundColor: Style.bostonRed,
-        ),
-        body: Obx(() {
-          if (controller.isLoading.value) {
-            return const Center(
-              child: CircularProgressIndicator(color: Style.bostonRed),
-            );
-          } else {
-            return Column(
+      child: Obx(() {
+        return Scaffold(
+          appBar: AppBar(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                PokemonSearch(
+                Text(
+                  'Explore Pokémon',
+                  style: pokedexTextStyle,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            backgroundColor: controller.pokedexColor.value,
+          ),
+          body: Obx(() {
+            if (controller.isLoading.value) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: controller.pokedexColor.value,
+                ),
+              );
+            } else {
+              return Column(
+                children: [
+                  PokemonSearch(
                     searchController: searchController,
                     onPressed: () {
                       searchController.clear();
                       controller.resetSearch();
                     },
-                    onChanged: controller.filterPokemon),
-                Expanded(
-                  child: Obx(() {
-                    if (controller.displayedPokemon.isEmpty) {
-                      return Center(
-                        child: Text(
-                          'Oops..No Pokémon found in Kanto',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 20.sp),
-                        ),
-                      );
-                    } else {
-                      return ListView.builder(
-                        itemCount: controller.displayedPokemon.length,
-                        itemBuilder: (context, index) {
-                          final pokemon = controller.displayedPokemon[index];
-                          return PokemonSearchTile(
+                    onChanged: controller.filterPokemon,
+                  ),
+                  Expanded(
+                    child: Obx(() {
+                      if (controller.displayedPokemon.isEmpty) {
+                        return Center(
+                          child: Text(
+                            'Oops..No Pokémon found in Kanto',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20.sp,
+                            ),
+                          ),
+                        );
+                      } else {
+                        return ListView.builder(
+                          itemCount: controller.displayedPokemon.length,
+                          itemBuilder: (context, index) {
+                            final pokemon = controller.displayedPokemon[index];
+                            return PokemonSearchTile(
                               pokemon: pokemon,
                               onTap: () {
                                 Navigator.of(Get.context!).push(
@@ -107,17 +113,19 @@ class _PokemonSearchScreenState extends State<PokemonSearchScreen> {
                                     },
                                   ),
                                 );
-                              });
-                        },
-                      );
-                    }
-                  }),
-                ),
-              ],
-            );
-          }
-        }),
-      ),
+                              },
+                            );
+                          },
+                        );
+                      }
+                    }),
+                  ),
+                ],
+              );
+            }
+          }),
+        );
+      }),
     );
   }
 }

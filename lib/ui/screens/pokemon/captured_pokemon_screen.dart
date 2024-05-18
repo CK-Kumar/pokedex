@@ -39,116 +39,120 @@ class CapturedPokemonScreen extends StatelessWidget {
       Types.water
     ];
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Captured Pokémon',
-              style: pokedexTextStyle,
-              textAlign: TextAlign.center,
+    return SafeArea(
+      top: false,
+      child: Obx(() {
+        return Scaffold(
+          appBar: AppBar(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Captured Pokémon',
+                  style: pokedexTextStyle,
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-          ],
-        ),
-        backgroundColor: Style.bostonRed,
-        actions: [
-          PopupMenuButton<String>(
-            icon: Obx(() => Icon(
-                controller.selectedType.isEmpty
-                    ? Icons.filter_alt_outlined
-                    : Icons.filter_alt,
-                size: 28.sp,
-                color: Colors.black)),
-            onSelected: (String result) {
-              controller.filterByType(result);
-            },
-            itemBuilder: (BuildContext context) {
-              return types.map((type) {
-                return PopupMenuItem<String>(
-                  value: type,
-                  child: Text(
-                    type.isEmpty ? 'All Types' : type.capitalizeFirst!,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: controller.selectedType.value == type
-                          ? Style.bostonRed
-                          : Colors.black,
-                    ),
-                  ),
-                );
-              }).toList();
-            },
-          ),
-          IconButton(
-            icon: Obx(() => Icon(
+            backgroundColor: controller.pokedexColor.value,
+            actions: [
+              PopupMenuButton<String>(
+                icon: Icon(
+                  controller.selectedType.isEmpty
+                      ? Icons.filter_alt_outlined
+                      : Icons.filter_alt,
+                  size: 28.sp,
+                  color: Colors.black,
+                ),
+                onSelected: (String result) {
+                  controller.filterByType(result);
+                },
+                itemBuilder: (BuildContext context) {
+                  return types.map((type) {
+                    return PopupMenuItem<String>(
+                      value: type,
+                      child: Text(
+                        type.isEmpty ? 'All Types' : type.capitalizeFirst!,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: controller.selectedType.value == type
+                              ? Style.bostonRed
+                              : Colors.black,
+                        ),
+                      ),
+                    );
+                  }).toList();
+                },
+              ),
+              IconButton(
+                icon: Icon(
                   controller.isSortedByName.value
                       ? Icons.sort_by_alpha
                       : Icons.sort,
                   size: 28.sp,
                   color: Colors.black,
-                )),
-            onPressed: () {
-              controller.toggleSort();
-            },
-          ),
-        ],
-      ),
-      body: Obx(() {
-        if (controller.capturedDisplayedPokemonList.isEmpty) {
-          return Center(
-            child: Text(
-              "Oops... Gotta Catch 'em All",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 20.sp,
-              ),
-            ),
-          );
-        }
-
-        return Padding(
-          padding:
-              EdgeInsets.only(top: 15.h, left: 10.h, right: 10.h, bottom: 10.h),
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.75,
-              crossAxisSpacing: 13.w,
-              mainAxisSpacing: 13.h,
-            ),
-            itemCount: controller.capturedDisplayedPokemonList.length,
-            itemBuilder: (context, index) {
-              Pokemon pokemon = controller.capturedDisplayedPokemonList[index];
-              return CapturedPokemonCard(
-                pokemon: pokemon,
-                onTap: () {
-                  Navigator.of(Get.context!).push(
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          PokemonDetailsScreen(pokemon: pokemon),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        var scaleAnimation =
-                            Tween(begin: 0.0, end: 1.0).animate(
-                          CurvedAnimation(
-                            parent: animation,
-                            curve: Curves.easeInOut,
-                          ),
-                        );
-
-                        return ScaleTransition(
-                          scale: scaleAnimation,
-                          child: child,
-                        );
-                      },
-                    ),
-                  );
+                ),
+                onPressed: () {
+                  controller.toggleSort();
                 },
-              );
-            },
+              ),
+            ],
           ),
+          body: controller.capturedDisplayedPokemonList.isEmpty
+              ? Center(
+                  child: Text(
+                    "Oops... Gotta Catch 'em All",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20.sp,
+                    ),
+                  ),
+                )
+              : Padding(
+                  padding: EdgeInsets.only(
+                      top: 15.h, left: 10.h, right: 10.h, bottom: 10.h),
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.75,
+                      crossAxisSpacing: 13.w,
+                      mainAxisSpacing: 13.h,
+                    ),
+                    itemCount: controller.capturedDisplayedPokemonList.length,
+                    itemBuilder: (context, index) {
+                      Pokemon pokemon =
+                          controller.capturedDisplayedPokemonList[index];
+                      return CapturedPokemonCard(
+                        pokemon: pokemon,
+                        onTap: () {
+                          Navigator.of(Get.context!).push(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      PokemonDetailsScreen(pokemon: pokemon),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                var scaleAnimation =
+                                    Tween(begin: 0.0, end: 1.0).animate(
+                                  CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.easeInOut,
+                                  ),
+                                );
+
+                                return ScaleTransition(
+                                  scale: scaleAnimation,
+                                  child: child,
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
         );
       }),
     );

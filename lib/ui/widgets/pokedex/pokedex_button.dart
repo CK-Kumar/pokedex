@@ -4,12 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class PokedexButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final IconData? icon;
 
-  const PokedexButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-  });
+  const PokedexButton(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,10 @@ class PokedexButton extends StatelessWidget {
             blurRadius: 4.w,
           ),
         ],
+        border: Border.all(
+          color: Colors.black,
+          width: 3.0.w,
+        ),
       ),
       child: Material(
         color: Colors.transparent,
@@ -41,16 +46,17 @@ class PokedexButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
-                  Icons.catching_pokemon,
+                Icon(
+                  icon,
                   color: Colors.white,
+                  size: 30.h,
                 ),
                 SizedBox(width: 10.0.w),
                 Text(
                   text,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 18.0.sp,
+                    fontSize: 22.0.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

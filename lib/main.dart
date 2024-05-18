@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pokedex/ui/pokedex_app.dart';
 
-Future<void> main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const PokedexApp());
 }
