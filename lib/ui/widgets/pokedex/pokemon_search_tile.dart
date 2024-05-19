@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,25 +23,24 @@ class PokemonSearchTile extends StatelessWidget {
       child: ListTile(
         leading: Obx(() {
           return pokemon.imageUrlRx.value.isNotEmpty
-              ? Image.network(
-                  pokemon.imageUrlRx.value,
+              ? CachedNetworkImage(
+                  imageUrl: pokemon.imageUrlRx.value,
                   width: 50.w,
                   height: 50.h,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    } else {
-                      return SizedBox(
-                        width: 30.w,
-                        height: 30.h,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: controller.pokedexColor.value,
-                        ),
-                      );
-                    }
-                  },
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => SizedBox(
+                    width: 30.w,
+                    height: 30.h,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: controller.pokedexColor.value,
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Icon(
+                    Icons.error,
+                    color: Colors.black,
+                    size: 30.h,
+                  ),
                 )
               : SizedBox(
                   width: 30.w,

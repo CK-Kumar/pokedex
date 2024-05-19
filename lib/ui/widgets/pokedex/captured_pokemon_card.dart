@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pokedex/controllers/pokedex_controller.dart';
 import 'package:pokedex/models/pokemon_model.dart';
 import 'package:pokedex/utils/style.dart';
 
@@ -13,6 +15,7 @@ class CapturedPokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PokedexController controller = Get.find();
     return Card(
       color: pokemon.typesRx.isEmpty
           ? Colors.white
@@ -41,27 +44,23 @@ class CapturedPokemonCard extends StatelessWidget {
             SizedBox(height: 5.h),
             Obx(() {
               return pokemon.imageUrlRx.value.isNotEmpty
-                  ? Image.network(
-                      pokemon.imageUrlRx.value,
+                  ? CachedNetworkImage(
+                      imageUrl: pokemon.imageUrlRx.value,
                       width: 100.w,
                       height: 100.h,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        } else {
-                          return CircularProgressIndicator(
-                            color: Style.bostonRed,
-                            value: loadingProgress.expectedTotalBytes != null
-                                ? loadingProgress.cumulativeBytesLoaded /
-                                    loadingProgress.expectedTotalBytes!
-                                : null,
-                          );
-                        }
-                      },
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => CircularProgressIndicator(
+                        color: controller.pokedexColor.value,
+                        value: null,
+                      ),
+                      errorWidget: (context, url, error) => Icon(
+                        Icons.error,
+                        color: Colors.black,
+                        size: 100.h,
+                      ),
                     )
-                  : const CircularProgressIndicator(
-                      color: Style.bostonRed,
+                  : CircularProgressIndicator(
+                      color: controller.pokedexColor.value,
                     );
             }),
             SizedBox(height: 5.h),

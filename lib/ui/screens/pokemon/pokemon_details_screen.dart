@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:pokedex/controllers/pokedex_controller.dart';
 import 'package:pokedex/models/pokemon_model.dart';
 import 'package:pokedex/utils/style.dart';
@@ -11,6 +12,7 @@ class PokemonDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PokedexController controller = Get.put(PokedexController());
     return SafeArea(
       top: false,
       child: Obx(() {
@@ -35,8 +37,9 @@ class PokemonDetailsScreen extends StatelessWidget {
                   pokemon.heightRx.value == 0 ||
                   pokemon.weightRx.value == 0 ||
                   pokemon.typesRx.isEmpty
-              ? const Center(
-                  child: CircularProgressIndicator(color: Style.bostonRed),
+              ? Center(
+                  child: CircularProgressIndicator(
+                      color: controller.pokedexColor.value),
                 )
               : SingleChildScrollView(
                   child: Column(
@@ -54,10 +57,23 @@ class PokemonDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         child: Center(
-                          child: Image.network(
-                            pokemon.highResolutionUrlRx.value,
+                          child: CachedNetworkImage(
+                            imageUrl: pokemon.highResolutionUrlRx.value,
                             height: 300.h,
                             fit: BoxFit.fitHeight,
+                            placeholder: (context, url) => SizedBox(
+                              height: 300.h,
+                              child: Center(
+                                child: CircularProgressIndicator(
+                                  color: controller.pokedexColor.value,
+                                ),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Icon(
+                              Icons.error,
+                              color: Colors.black,
+                              size: 300.h,
+                            ),
                           ),
                         ),
                       ),
