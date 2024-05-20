@@ -6,11 +6,12 @@ class PokedexButton extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData? icon;
 
-  const PokedexButton(
-      {super.key,
-      required this.text,
-      required this.onPressed,
-      required this.icon});
+  const PokedexButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+    required this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,23 +42,25 @@ class PokedexButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.0.w),
           onTap: onPressed,
           child: Padding(
-            padding: EdgeInsets.all(20.h),
+            padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   icon,
                   color: Colors.white,
-                  size: 30.h,
+                  size: 30.w,
                 ),
-                SizedBox(width: 10.0.w),
-                Text(
-                  text,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22.0.sp,
-                    fontWeight: FontWeight.bold,
+                SizedBox(width: 10.w),
+                Flexible(
+                  child: Text(
+                    text,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
